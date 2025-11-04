@@ -2,14 +2,15 @@
    "name": "employee-dashboard",
    "version": "1.0.0",
    "description": "Employee Data Visualization with Electron, React, and TypeScript",
-   "main": "electron/main.js",
+   "main": "dist-electron/index.js",
    "scripts": {
       "dev": "vite",
       "build": "vite build",
       "preview": "vite preview",
       "electron": "electron .",
       "electron-dev": "vite && electron .",
-      "build:win": "npm run build && electron-builder --win --publish never",
+      "build:win": "rmdir /s /q dist 2>nul & tsc electron/index.ts --outDir dist-electron && npm run build && electron-builder --win --publish never",
+      "make": "rmdir /s /q dist 2>nul & tsc electron/index.ts --outDir dist-electron && npm run build && electron-builder --win --publish never",
       "type-check": "tsc --noEmit",
       "openapi:generate": "openapi-typescript https://api.dummy.in-lotion.de/openapi.yaml -o src/types/api.ts"
    },
@@ -48,27 +49,13 @@
       "productName": "Employee Dashboard",
       "files": [
          "dist/**/*",
-         "electron/**/*",
-         "node_modules/**/*"
+         "dist-electron/**/*"
       ],
       "directories": {
          "buildResources": "assets"
       },
       "win": {
-         "target": [
-            {
-               "target": "portable",
-               "arch": [
-                  "x64"
-               ]
-            }
-         ],
-         "certificateFile": null,
-         "certificatePassword": null,
-         "signingHashAlgorithms": [
-            "sha256"
-         ],
-         "sign": null
+         "target": "portable"
       }
    }
 }

@@ -49,3 +49,10 @@ The app fetches data from a REST API. To configure the API endpoint:
 - **Desktop**: Electron
 - **Styling**: Tailwind CSS
 - **API**: Axios for HTTP requests
+
+## Portable Executable
+
+After running `npm run make`, the portable .exe file is located at:
+`dist/Employee Dashboard 1.0.0.exe`
+
+This file can be run directly without installation.

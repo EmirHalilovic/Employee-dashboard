@@ -3,10 +3,10 @@ import { join } from 'path';
 
 // Packages
 import { BrowserWindow, app, ipcMain, IpcMainEvent, nativeTheme } from 'electron';
-import isDev from 'electron-is-dev';
+const isDev = process.env.NODE_ENV === 'development';
 
-const height = 600;
-const width = 800;
+const height = 1000;
+const width = 1000;
 
 function createWindow() {
   // Create the browser window.
@@ -14,9 +14,9 @@ function createWindow() {
     width,
     height,
     //  change to false to use AppBar
-    frame: false,
+    frame: true,
     show: true,
-    resizable: true,
+    resizable: false,
     fullscreenable: true,
     webPreferences: {
       preload: join(__dirname, 'preload.js')
@@ -24,7 +24,7 @@ function createWindow() {
   });
 
   const port = process.env.PORT || 3000;
-  const url = isDev ? `http://localhost:${port}` : join(__dirname, '../dist-vite/index.html');
+  const url = isDev ? `http://localhost:${port}` : join(__dirname, '../dist/index.html');
 
   // and load the index.html of the app.
   if (isDev) {

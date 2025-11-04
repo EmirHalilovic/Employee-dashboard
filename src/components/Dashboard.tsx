@@ -81,7 +81,7 @@ const Dashboard: React.FC<DashboardProps> = ({ data }) => {
   return (
     <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
       <h1 style={{ textAlign: 'center', marginBottom: '30px', color: '#333' }}>
-        ⏰ Time, Divided & Conquered
+         Time, Divided & Conquered
       </h1>
 
       {/* Averages Cards */}
