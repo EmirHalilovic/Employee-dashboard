@@ -1,0 +1,74 @@
+{
+   "name": "employee-dashboard",
+   "version": "1.0.0",
+   "description": "Employee Data Visualization with Electron, React, and TypeScript",
+   "main": "electron/main.js",
+   "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "preview": "vite preview",
+      "electron": "electron .",
+      "electron-dev": "vite && electron .",
+      "build:win": "npm run build && electron-builder --win --publish never",
+      "type-check": "tsc --noEmit",
+      "openapi:generate": "openapi-typescript https://api.dummy.in-lotion.de/openapi.yaml -o src/types/api.ts"
+   },
+   "dependencies": {
+      "axios": "^1.6.0",
+      "chart.js": "^4.4.0",
+      "react": "^18.2.0",
+      "react-chartjs-2": "^5.2.0",
+      "react-dom": "^18.2.0"
+   },
+   "devDependencies": {
+      "@types/node": "^20.10.0",
+      "@types/react": "^18.2.37",
+      "@types/react-dom": "^18.2.15",
+      "@typescript-eslint/eslint-plugin": "^7.18.0",
+      "@typescript-eslint/parser": "^7.18.0",
+      "@vitejs/plugin-react": "^4.2.0",
+      "electron": "^27.0.0",
+      "electron-builder": "^24.6.0",
+      "eslint": "^8.57.1",
+      "eslint-config-airbnb-typescript": "^18.0.0",
+      "eslint-config-prettier": "^10.1.8",
+      "eslint-plugin-import": "^2.32.0",
+      "eslint-plugin-jsx-a11y": "^6.10.2",
+      "eslint-plugin-prettier": "^5.5.4",
+      "eslint-plugin-react": "^7.37.5",
+      "eslint-plugin-react-hooks": "^7.0.1",
+      "openapi-typescript": "^6.7.0",
+      "prettier": "^3.6.2",
+      "terser": "^5.44.0",
+      "typescript": "^5.3.2",
+      "vite": "^5.0.0"
+   },
+   "build": {
+      "appId": "com.example.employee-dashboard",
+      "productName": "Employee Dashboard",
+      "files": [
+         "dist/**/*",
+         "electron/**/*",
+         "node_modules/**/*"
+      ],
+      "directories": {
+         "buildResources": "assets"
+      },
+      "win": {
+         "target": [
+            {
+               "target": "portable",
+               "arch": [
+                  "x64"
+               ]
+            }
+         ],
+         "certificateFile": null,
+         "certificatePassword": null,
+         "signingHashAlgorithms": [
+            "sha256"
+         ],
+         "sign": null
+      }
+   }
+}
