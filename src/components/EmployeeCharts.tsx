@@ -12,6 +12,7 @@ import {
   LineElement,
 } from 'chart.js';
 import { Bar, Pie, Line } from 'react-chartjs-2';
+import './EmployeeCharts.css';
 
 ChartJS.register(
   CategoryScale,
@@ -98,18 +99,18 @@ const EmployeeCharts: React.FC<EmployeeChartsProps> = ({ data }) => {
   };
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '20px', padding: '20px' }}>
-      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+    <div className="employee-charts">
+      <div className="chart-card">
         <h3>Project Allocation</h3>
         <Pie data={projectChartData} options={chartOptions} />
       </div>
       
-      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+      <div className="chart-card">
         <h3>Workplace Distribution</h3>
         <Pie data={workplaceChartData} options={chartOptions} />
       </div>
       
-      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', gridColumn: '1 / -1' }}>
+      <div className="chart-card full-width-chart">
         <h3>Daily Work Hours</h3>
         <Line data={workHoursChartData} options={chartOptions} />
       </div>

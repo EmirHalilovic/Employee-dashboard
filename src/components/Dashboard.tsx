@@ -6,6 +6,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import './Dashboard.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -79,48 +80,48 @@ const Dashboard: React.FC<DashboardProps> = ({ data }) => {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '30px', color: '#333' }}>
+    <div className="dashboard">
+      <h1 className="dashboard-title">
          Time, Divided & Conquered
       </h1>
 
       {/* Averages Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px', marginBottom: '30px' }}>
-        <div style={{ background: '#f8f9fa', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
-          <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#495057' }}>
+      <div className="stats-grid">
+        <div className="stat-card">
+          <div className="stat-value">
             {avgStartTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
           </div>
-          <div style={{ fontSize: '12px', color: '#6c757d' }}>Avg Start Time</div>
+          <div className="stat-label">Avg Start Time</div>
         </div>
-        <div style={{ background: '#f8f9fa', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
-          <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#495057' }}>
+        <div className="stat-card">
+          <div className="stat-value">
             {avgEndTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
           </div>
-          <div style={{ fontSize: '12px', color: '#6c757d' }}>Avg End Time</div>
+          <div className="stat-label">Avg End Time</div>
         </div>
-        <div style={{ background: '#f8f9fa', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
-          <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#495057' }}>
+        <div className="stat-card">
+          <div className="stat-value">
             {(avgBreakMinutes / 60).toFixed(2)}h
           </div>
-          <div style={{ fontSize: '12px', color: '#6c757d' }}>Avg Break Duration</div>
+          <div className="stat-label">Avg Break Duration</div>
         </div>
-        <div style={{ background: '#f8f9fa', padding: '15px', borderRadius: '8px', textAlign: 'center' }}>
-          <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#495057' }}>
+        <div className="stat-card">
+          <div className="stat-value">
             {(avgWorkMinutes / 60).toFixed(2)}h
           </div>
-          <div style={{ fontSize: '12px', color: '#6c757d' }}>Avg Work Duration</div>
+          <div className="stat-label">Avg Work Duration</div>
         </div>
       </div>
 
       {/* Pie Charts */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
-        <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-          <h3 style={{ textAlign: 'center', marginBottom: '20px', color: '#495057' }}>Project Allocation</h3>
+      <div className="charts-grid">
+        <div className="chart-container">
+          <h3 className="chart-title">Project Allocation</h3>
           <Pie data={projectChartData} options={chartOptions} />
         </div>
         
-        <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-          <h3 style={{ textAlign: 'center', marginBottom: '20px', color: '#495057' }}>Workplace Allocation</h3>
+        <div className="chart-container">
+          <h3 className="chart-title">Workplace Allocation</h3>
           <Pie data={workplaceChartData} options={chartOptions} />
         </div>
       </div>
