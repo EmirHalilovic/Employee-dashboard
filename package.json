@@ -1,6 +1,6 @@
 {
   "name": "employee-dashboard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Employee Dashboard",
   "main": "electron/electron.js",
   "scripts": {
