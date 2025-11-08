@@ -1,56 +1,75 @@
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { ChartData } from '../services/calculations';
+import React from 'react'
+import { Pie } from 'react-chartjs-2'
+import '../styles/PieChart.css'
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from 'chart.js'
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend)
 
 interface PieChartProps {
-  data: ChartData;
+  title: string
+  data: { [key: string]: number }
 }
 
-function PieChart({ data }: PieChartProps) {
+const COLORS = [
+  '#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6',
+  '#1abc9c', '#34495e', '#e67e22', '#95a5a6', '#f1c40f'
+]
+
+export const PieChart: React.FC<PieChartProps> = ({ title, data }) => {
+  const labels = Object.keys(data)
+  const values = Object.values(data)
+
   const chartData = {
-    labels: data.labels,
+    labels,
     datasets: [
       {
-        label: data.datasets.label,
-        data: data.datasets.data,
-        backgroundColor: data.datasets.backgroundColor,
+        data: values,
+        backgroundColor: COLORS.slice(0, labels.length),
         borderColor: '#fff',
         borderWidth: 2,
-        hoverOffset: 10,
       },
     ],
-  };
+  }
 
   const options = {
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
+    animation: {
+      animateRotate: true,
+      animateScale: true,
+      duration: 1000,
+    },
     plugins: {
       legend: {
         position: 'bottom' as const,
         labels: {
-          font: {
-            size: 12,
-          },
-          padding: 15,
+          padding: 20,
           usePointStyle: true,
         },
       },
       tooltip: {
         callbacks: {
           label: (context: any) => {
-            const value = context.parsed;
-            const hours = Math.floor(value / 60);
-            const minutes = Math.round(value % 60);
-            return `${hours}h ${minutes}m`;
+            const hours = Math.floor(context.parsed / 60)
+            const minutes = Math.round(context.parsed % 60)
+            return `${context.label}: ${hours}h ${minutes}m`
           },
         },
       },
     },
-  };
+  }
 
-  return <Pie data={chartData} options={options} />;
+  return (
+    <div className="chart-section">
+      <h2>{title}</h2>
+      <div className="chart-wrapper">
+        <Pie data={chartData} options={options} />
+      </div>
+    </div>
+  )
 }
-
-export default PieChart;
