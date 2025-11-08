@@ -1,61 +1,56 @@
 {
-   "name": "employee-dashboard",
-   "version": "1.0.0",
-   "description": "Employee Data Visualization with Electron, React, and TypeScript",
-   "main": "dist-electron/index.js",
-   "scripts": {
-      "dev": "vite",
-      "build": "vite build",
-      "preview": "vite preview",
-      "electron": "electron .",
-      "electron-dev": "vite && electron .",
-      "build:win": "rmdir /s /q dist 2>nul & tsc electron/index.ts --outDir dist-electron && npm run build && electron-builder --win --publish never",
-      "make": "rmdir /s /q dist 2>nul & tsc electron/index.ts --outDir dist-electron && npm run build && electron-builder --win --publish never",
-      "type-check": "tsc --noEmit",
-      "openapi:generate": "openapi-typescript https://api.dummy.in-lotion.de/openapi.yaml -o src/types/api.ts"
-   },
-   "dependencies": {
-      "axios": "^1.6.0",
-      "chart.js": "^4.4.0",
-      "react": "^18.2.0",
-      "react-chartjs-2": "^5.2.0",
-      "react-dom": "^18.2.0"
-   },
-   "devDependencies": {
-      "@types/node": "^20.10.0",
-      "@types/react": "^18.2.37",
-      "@types/react-dom": "^18.2.15",
-      "@typescript-eslint/eslint-plugin": "^7.18.0",
-      "@typescript-eslint/parser": "^7.18.0",
-      "@vitejs/plugin-react": "^4.2.0",
-      "electron": "^27.0.0",
-      "electron-builder": "^24.6.0",
-      "eslint": "^8.57.1",
-      "eslint-config-airbnb-typescript": "^18.0.0",
-      "eslint-config-prettier": "^10.1.8",
-      "eslint-plugin-import": "^2.32.0",
-      "eslint-plugin-jsx-a11y": "^6.10.2",
-      "eslint-plugin-prettier": "^5.5.4",
-      "eslint-plugin-react": "^7.37.5",
-      "eslint-plugin-react-hooks": "^7.0.1",
-      "openapi-typescript": "^6.7.0",
-      "prettier": "^3.6.2",
-      "terser": "^5.44.0",
-      "typescript": "^5.3.2",
-      "vite": "^5.0.0"
-   },
-   "build": {
-      "appId": "com.example.employee-dashboard",
-      "productName": "Employee Dashboard",
-      "files": [
-         "dist/**/*",
-         "dist-electron/**/*"
-      ],
-      "directories": {
-         "buildResources": "assets"
-      },
-      "win": {
-         "target": "portable"
-      }
-   }
+  "name": "employee-dashboard",
+  "version": "1.0.0",
+  "description": "Employee Dashboard",
+  "main": "electron/electron.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
+    "dev:vite": "vite",
+    "dev:electron": "wait-on http://localhost:5173 && tsc -p electron/tsconfig.electron.json && electron electron/electron.js",
+    "build": "tsc -p electron/tsconfig.electron.json && vite build",
+    "build:electron": "npm run build && electron-builder",
+    "build:clean": ".\\build-clean.bat",
+    "generate-api": "openapi-generator-cli generate -i https://api.dummy.in-lotion.de/openapi.yaml -g typescript-axios -o src/api --additional-properties=supportsES6=true,npmName=api-client,npmVersion=1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "wait-on": "^7.2.0",
+    "@openapitools/openapi-generator-cli": "^2.7.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "chart.js": "^4.4.0",
+    "react-chartjs-2": "^5.2.0",
+    "axios": "^1.6.2"
+  },
+  "build": {
+    "appId": "com.example.employee-dashboard",
+    "productName": "Employee Dashboard",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/electron.js",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable"
+    }
+  }
 }
